@@ -21,6 +21,12 @@ router.get("/:id/modifier", (req, res) => {
   res.render("modifier-ticket", { ticket });
 });
 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  const ticket = ticketsService.findTicketById(id);
+  res.render("detail-ticket", { ticket });
+});
+
 router.post("/:id/modifier", (req, res) => {
   const { id } = req.params;
   const { titre, description } = req.body;
