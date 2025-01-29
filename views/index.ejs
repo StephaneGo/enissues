@@ -9,7 +9,7 @@
     <h1>Tickets</h1>
 
     <h2>Ajouter un ticket</h2>
-    <form action="/issues" method="post">
+    <form action="/tickets" method="post">
       <label for="titre">Titre</label>
       <input type="text" name="titre" id="titre" />
       <label for="description">Description</label>
@@ -17,13 +17,13 @@
       <button type="submit">Ajouter</button>
     </form>
 
-    <% for (let i = 0; i < issues.length; i++) { %>
+    <% for (let i = 0; i < tickets.length; i++) { %>
     <div>
-      <h2><%= issues[i].titre %></h2>
-      <p><%= issues[i].description %></p>
+      <h2><%= tickets[i].titre %></h2>
+      <p><%= tickets[i].description %></p>
       <p>
-        <a href="/issues/<%= issues[i].id %>/modifier">Modifier</a>
-        <a href="/issues/<%= issues[i].id %>/supprimer">Supprimer</a>
+        <a href="/tickets/<%= tickets[i].id %>/modifier">Modifier</a>
+        <a href="/tickets/<%= tickets[i].id %>/supprimer">Supprimer</a>
       </p>
     </div>
     <% } %>
