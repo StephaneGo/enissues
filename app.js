@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+require("dotenv").config();
+
+const port = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
@@ -25,4 +28,6 @@ app.use((err, req, res, next) => {
   res.status(500).render("erreur", { titre: "Erreur interne", erreur: err });
 });
 
-app.listen(3000);
+app.listen(port, () => {
+  console.log(`Serveur en cours d'exécution sur le port ${port}`);
+});
