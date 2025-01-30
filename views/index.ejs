@@ -47,12 +47,12 @@
     <% for (let i = 0; i < tickets.length; i++) { %>
     <div>
       <h2>
-        <a href="/tickets/<%= tickets[i].id %>"> <%= tickets[i].titre %></a>
+        <a href="/tickets/<%= tickets[i]._id %>"> <%= tickets[i].titre %></a>
       </h2>
       <p><%= tickets[i].description %></p>
       <p>
-        <a href="/tickets/<%= tickets[i].id %>/modifier">Modifier</a>
-        <a href="/tickets/<%= tickets[i].id %>/supprimer">Supprimer</a>
+        <a href="/tickets/<%= tickets[i]._id %>/modifier">Modifier</a>
+        <a href="/tickets/<%= tickets[i]._id %>/supprimer">Supprimer</a>
       </p>
     </div>
     <% } %>

@@ -7,7 +7,7 @@
   </head>
   <body>
     <h2>Modifier un ticket</h2>
-    <form action="/tickets/<%= ticket.id %>/modifier" method="post">
+    <form action="/tickets/<%= ticket._id %>/modifier" method="post">
       <label for="titre">Titre</label>
       <input type="text" name="titre" id="titre" value="<%= ticket.titre %>" />
       <label for="description">Description</label>

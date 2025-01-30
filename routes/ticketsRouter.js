@@ -4,10 +4,11 @@ var ticketsService = require("../services/ticketsService");
 
 var router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("index", { tickets: ticketsService.findAllTickets() });
+router.get("/", async (req, res) => {
+  res.render("index", { tickets: await ticketsService.findAllTickets() });
 });
 
+// Ajouter un ticket
 router.post(
   "/",
   body("titre").trim().notEmpty().withMessage("Champ obligatoire"),
@@ -15,12 +16,13 @@ router.post(
     .trim()
     .isLength({ min: 3 })
     .withMessage("Minimum 3 caractères"),
-  (req, res) => {
+  async (req, res) => {
     const { titre, description } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      const tickets = await ticketsService.findAllTickets();
       res.render("index", {
-        tickets: ticketsService.findAllTickets(),
+        tickets: tickets,
         ticket: req.body,
         errors: errors.array(),
       });
@@ -33,15 +35,15 @@ router.post(
   }
 );
 
-router.get("/:id/modifier", (req, res) => {
+router.get("/:id/modifier", async (req, res) => {
   const { id } = req.params;
-  const ticket = ticketsService.findTicketById(id);
+  const ticket = await ticketsService.findTicketById(id);
   res.render("modifier-ticket", { ticket });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const ticket = ticketsService.findTicketById(id);
+  const ticket = await ticketsService.findTicketById(id);
   res.render("detail-ticket", { ticket });
 });
 
@@ -52,7 +54,7 @@ router.post(
     .trim()
     .isLength({ min: 3 })
     .withMessage("Minimum 3 caractères"),
-  (req, res) => {
+ async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("modifier-ticket", {
@@ -63,14 +65,14 @@ router.post(
     }
     const { id } = req.params;
     const { titre, description } = req.body;
-    ticketsService.updateTicket(id, titre, description);
+    await ticketsService.updateTicket(id, titre, description);
     res.redirect("/");
   }
 );
 
-router.get("/:id/supprimer", (req, res) => {
+router.get("/:id/supprimer", async (req, res) => {
   const { id } = req.params;
-  ticketsService.deleteTicket(id);
+  await ticketsService.deleteTicket(id);
   res.redirect("/");
 });
 

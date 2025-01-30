@@ -12,6 +12,11 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true }));
 
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+  console.log("Connexion à MongoDB established : ", process.env.MONGODB_URI);
+}).catch((error) => console.log("Connexion à MongoDB failed : ", error));
+
 var indexRouter = require("./routes/indexRouter");
 var ticketsRouter = require("./routes/ticketsRouter");
 
